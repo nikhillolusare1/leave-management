@@ -37,15 +37,15 @@ namespace leave_management.Repository
 
         public ICollection<LeaveAllocation> FindAll()
         {
-            return _db.LeaveAllocations
-                .Include(q => q.LeaveType)
-                .Include(q => q.Employee)
-                .ToList();
+            var leaveAllocations = _db.LeaveAllocations
+                                        .Include(q => q.LeaveType)
+                                        .Include(q => q.Employee)
+                                        .ToList();
+            return leaveAllocations;
         }
 
         public LeaveAllocation FindById(int id)
         {
-
             var leaveallocation = _db.LeaveAllocations
                 .Include(q => q.LeaveType)
                 .Include(q => q.Employee)
@@ -53,13 +53,19 @@ namespace leave_management.Repository
             return leaveallocation;
         }
 
-        public ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string id)
+        public ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string employeeid)
         {
             var period = DateTime.Now.Year;
             return FindAll()
-                .Where(q => q.EmployeeId == id && q.Period == period)
+                .Where(q => q.EmployeeId == employeeid && q.Period == period)
                 .ToList();
-                
+        }
+
+        public LeaveAllocation GetLeaveAllocationsByEmployeeAndType(string employeeid, int leavetypeid)
+        {
+            var period = DateTime.Now.Year;
+            var leaveAllocation =  FindAll().FirstOrDefault(q => q.EmployeeId == employeeid && q.Period == period && q.LeaveTypeId == leavetypeid);
+            return leaveAllocation;
         }
 
         public bool isExists(int id)
@@ -76,7 +82,7 @@ namespace leave_management.Repository
 
         public bool Update(LeaveAllocation entity)
         {
-            _db.LeaveAllocations.Update(entity);
+            var leaves = _db.LeaveAllocations.Update(entity);
             return Save();
         }
     }
