@@ -1,7 +1,6 @@
 ﻿@model leave_management.Models.CreateLeaveAllocationVM
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
@@ -26,7 +25,7 @@
             </td>            
             <td>
                 <a class="btn btn-outline-success" asp-action="SetLeave" asp-route-id="@item.Id" >
-                    <i class="fa fa-pencil"></i> Allocate to Employees
+                    <i class="fa fa-user-edit"></i> Allocate to Employees
                 </a>
             </td>
         </tr>
