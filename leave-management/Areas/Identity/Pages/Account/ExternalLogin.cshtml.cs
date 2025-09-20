@@ -25,6 +25,7 @@ namespace leave_management.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
 
+
         public ExternalLoginModel(
             SignInManager<Employee> signInManager,
             UserManager<Employee> userManager,
